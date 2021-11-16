@@ -1,0 +1,41 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+#root,
+body,
+html {
+  height: 100vh;
+}
+
+body {
+  background-color: #e5e7eb;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-block-start: 0;
+  margin-block-end: 0;
+  font-family: Archivo;
+}
+
+.container {
+  display: grid;
+  height: 100%;
+  place-items: center;
+}
+
+/* button {
+  cursor: pointer;
+} */
+/* hr { */
+/* background-color: gray;
+  border: none;
+  height: 1px; */
+/* } */
