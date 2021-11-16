@@ -52,8 +52,9 @@ let reducer = (state, action) =>
 
 
 /* module resolution */
-/* open File é como se fosse o import */
-/* função maker é como se fosse o defaul export no reasonml */
+/* `open File` é como se fosse o import */
+/* função maker é como se fosse o defaul export no Reason */
+
 [@react.component]
 let make = () => {
   let (state, dispatch) = React.useReducer(reducer, initialState);
@@ -63,22 +64,36 @@ let make = () => {
     Some(() => Js.Global.clearInterval(timer));
   });
 
+  let title = 
+    switch (state.currentPhase) {
+      | Focus => "Focus"
+      | Break => "Break"
+    };
+
   <div>
+    <header>
+      <h1>{React.string(title)}</h1>
+    </header>
     <PomodoroTimer seconds={state.seconds} />
-    <PomodoroPanel 
-      phase="Focus"
-      value={state.focusTime}
-      onChange={(value) => dispatch(SetTimer(Focus, value))}
-    />
-    <PomodoroPanel 
-      phase="Break"
-      value={state.breakTime}
-      onChange={(value) => dispatch(SetTimer(Break, value))}
-    />
-    <button onClick={(_) => dispatch(TogglePhase)}>{React.string("toggle")}</button>
-    <button onClick={(_) => dispatch(Start)}>{React.string("start")}</button>
-    <button onClick={(_) => dispatch(Stop)}>{React.string("stop")}</button>
-    <button onClick={(_) => dispatch(Reset)}>{React.string("reset")}</button>
+    <PomodoroPanel>
+      <PomodoroPanelInput 
+        label="Focus"
+        value={state.focusTime}
+        onChange={(value) => dispatch(SetTimer(Focus, value))}
+      />
+      <PomodoroPanelInput
+        label="Break"
+        value={state.breakTime}
+        onChange={(value) => dispatch(SetTimer(Break, value))}
+      />
+    </PomodoroPanel>
+    <PomodoroActions>
+      <button onClick={(_) => dispatch(TogglePhase)}>{React.string("toggle")}</button>
+      <button onClick={(_) => dispatch(Reset)}>{React.string("reset")}</button>
+      {state.ticking 
+        ? <button onClick={(_) => dispatch(Stop)}>{React.string("stop")}</button> 
+        : <button onClick={(_) => dispatch(Start)}>{React.string("start")}</button>}
+    </PomodoroActions>
   </div>
 };
 
