@@ -1,6 +1,12 @@
+open Time;
+
 [@react.component]
-let make = () => {
+let make = (~seconds) => {
+  let timer = seconds 
+    |> timerFormatter 
+    |> React.string; 
+
   <div>
-    {React.string("timer")}
+    {timer}
   </div>
 };

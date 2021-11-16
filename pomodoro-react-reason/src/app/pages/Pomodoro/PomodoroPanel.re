@@ -1,6 +1,16 @@
+/* 
+ * ReactEvent.Form.target##value
+ * Sintaxe responsavel por interoperar Reason com JavaScript
+ **/
+
 [@react.component]
-let make = () => {
+let make = (~phase, ~value, ~onChange) => {
   <div>
-    {React.string("panel")}
+    <div>{React.string(phase)}</div>
+    <input 
+      type_="number"
+      value={string_of_int(value)}
+      onChange={(e) => e -> ReactEvent.Form.target##value |> onChange}
+    />
   </div>
 };
